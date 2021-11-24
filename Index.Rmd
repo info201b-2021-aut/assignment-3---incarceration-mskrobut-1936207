@@ -7,11 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
 ```{r cars}
 summary(cars)
@@ -45,7 +41,7 @@ ggplot(Chart1PercentJailPopBlack, aes(x=year, y=PercentofJailPop_Black)) +
   geom_line( color="#69b3a2", size=1, alpha=0.9, linetype=2) +
   theme_ipsum() +
   labs(title = "Black People's Percent of Total Incarceration \nin King County from 2000 to 2018") + ylab("Black Peoples % Total Incarceration") + xlab("Years")
-  theme_bw(base_size = 200)}
+  theme_bw(base_size = 200), echo=FALSE}
 
 
 
@@ -67,9 +63,31 @@ ggplot(ComparScat, aes(x=PercentofJailPop_Black, y=PercentofTotalPop_Black)) +
   geom_point(shape=21, color="black", fill="#69b3a2", size=6, alpha=0.6) +
   theme_ipsum() +
   labs(title = "The Effect of King County's rising population of \nBlack People on the amount of incarcerated \nBlack People in King County") + ylab("Percent of Total Black Population in Jail") + xlab("Percent of Total Black Population in King County")
-  theme_bw(base_size = 200)}
+  theme_bw(base_size = 200), echo=FALSE}
 
 
 
 ### Chart 3: Map
-This chart is a map of Washington and it compares the percentage of total black people that are incarcerated from the total jail population from each county in 2018. 
+This chart is a map of Washington and it compares the percent of black people of the county's total population in jail in 2018. I wanted to see how the percentage differed around the state. I was able to make lots of different maps but for some reason I was have trouble with adding my data into it. I added a picture of one of the maps I made but it the  data won't input it. I have lots of code in the analysis file that should some of the many ways I tried to get the map to work. 
+
+{Map_df <- subset(incarceration_trends, select = c("state", "county_name", "year", "total_jail_pop", "black_jail_pop")) %>%
+
+Map_df2018 <- mutate(Map_df, PercentofJailPop_Black = (black_jail_pop / total_jail_pop) * 100)
+
+counties_table<- subset(counties, select = c("county_name", "lat", "long"))
+
+county_table2018 <- merge(x=Map_df2018, y=counties_table, by = "county_name", all.x=TRUE)
+
+library(usmap)
+library(ggplot2)
+
+  plot_usmap(regions = "counties", data=county_table2018, values="PercentofJailPop_Black", aes(x=long, y=lat)) +
+    labs(title = "Percentage of Black People of the total Incarcerated Population in 2018",
+         subtitle = "This is a map of all the counties in the US.") +
+    theme(legend.position = "right")
+
+  plot_usmap(regions = "counties", data=county_data2018, values="PercentofJailPop_Black", exclude=NA, color = "red") +
+    scale_fill_continuous(low = "white", high = "red", name = "Population", label = scales::comma) +
+    labs(title = "Washington Region", subtitle = "Population in Washington Counties in 2018") +
+    theme(legend.position = "right"), echo=FALSE}
+    

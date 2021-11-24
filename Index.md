@@ -15,8 +15,6 @@ This chart is a connected scatterplot that analyzes the relationship between the
 
 ### Chart 3: Map
 This chart is a map of Washington and it compares the percent of black people of the county's total population in jail in 2018. I wanted to see how the percentage differed around the state. Using a map with color and having the darker the shade the higher the percentage would have been a very clear way to show this. I was able to make lots of different maps but for some reason I was have trouble with adding my data into it. I added a picture of one of the maps I made but it the  data won't input it. I have lots of code in the analysis file that should some of the many ways I tried to get the map to work. 
+![](charts/map.pgn)
 
-![](charts/chart3.pgn) <!-- -->
 
-
-END

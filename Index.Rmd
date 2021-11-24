@@ -26,3 +26,50 @@ plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+### Introduction
+Racism has plagued America for centuries and this is very clearly when looking at the prison system. Generational racism, the war on drugs, over policing, and our desperate need for police reform have led to the disproportionate incarceration of people of color. Throughout the United States, Black Americans are incarcerated at a massively higher rate than other races. I've chosen to take a closer look at the incarceration rates of Black Americans in comparison to other races with a focus in Washington and King county. I have lived in Seattle my whole life so I am interested to learn more about Washington's current prison system and our prison systems past. Total jail population in this dataset is the average daily number of people held in jail through December 31 of a given year. 
+
+I wanted to focus on the State of Washington so I found that the County in Washington with the highest total jail population in 2018 was King County with 3060 people. The County in Washington with the lowest total jail population in 2018 was Garfield and Columbia with 7 people. In 2018, the Largest population of black people lived in King County with 3060 people. The Washington Counties with the lowest population of black people in 2018 was Adams, Garfeild, Pend Oreille, Wahkiakum because they all had 0. The race with the most incarceration in 2018 in King County was white people with 1565.32 people. The race with the most incarceration in 1991 in King County was white people with 1137.79 people.
+
+### Chart 1: Trend over time
+This graph is a line plot that follows the trend over time of how many of the total incarceration people are black. I calculated this by using the merge function to create a column that output the percentage of the population in jail that are black. The math I did during the mergue function was dividing the black_jail_pop by the total_jail_pop and multiplying by 100. When looking at the line graph below, you can see that there hasn't been much of a change in black people's percentage of total incarceration. There was a little spike in 2010 and it has been decreasing ever since. I know from other research that black people's total population has increased in King County over the past 20 years though, so it is surprising to me that the chart didn't show a contant/steady increase.  
+
+{King_df <- read_csv("Desktop/assignment-3---incarceration-mskrobut-1936207/King_df.csv")
+Chart1PercentJailPopBlack <- subset(King_df, select = c("year", "PercentofJailPop_Black"))
+
+library(ggplot2)
+library(hrbrthemes)
+
+ggplot(Chart1PercentJailPopBlack, aes(x=year, y=PercentofJailPop_Black)) +
+  geom_line( color="#69b3a2", size=1, alpha=0.9, linetype=2) +
+  theme_ipsum() +
+  labs(title = "Black People's Percent of Total Incarceration \nin King County from 2000 to 2018") + ylab("Black Peoples % Total Incarceration") + xlab("Years")
+  theme_bw(base_size = 200)}
+
+
+
+
+
+### Chart 2: Variable Comparison Chart
+This chart is a connected scatterplot that analyzes the relationship between the population of black people in King County and how many of the total incarcerated people are black. I used ratios to compare this data so that I can fairly compare the data points together other and not have to worry about taking into account the population of King County growing in general. So I compared the percentage of Black people in all of King County's Total Population to the percent of black people who incarcerated. I found though looking at the general flow of the chart that generally as the percent of the black population rises in King County, the percent of the black popultion in jails is decreasing.
+
+
+{King_df <- read_csv("Desktop/assignment-3---incarceration-mskrobut-1936207/King_df.csv")
+ComparScat <- subset(King_df, select = c("year", "PercentofTotalPop_Black", "PercentofJailPop_Black")) %>%
+  filter(year == 2018 | year == 2016 | year == 2014 | year == 2012 | year == 2010 | year == 2008 | year == 2006 | year == 2004 | year == 2002 | year == 2000)
+
+library(ggplot2)
+library(hrbrthemes)
+
+ggplot(ComparScat, aes(x=PercentofJailPop_Black, y=PercentofTotalPop_Black)) + 
+  geom_line(color="grey") +
+  geom_point(shape=21, color="black", fill="#69b3a2", size=6, alpha=0.6) +
+  theme_ipsum() +
+  labs(title = "The Effect of King County's rising population of \nBlack People on the amount of incarcerated \nBlack People in King County") + ylab("Percent of Total Black Population in Jail") + xlab("Percent of Total Black Population in King County")
+  theme_bw(base_size = 200)}
+
+
+
+### Chart 3: Map
+This chart is a map of Washington and it compares the percentage of total black people that are incarcerated from the total jail population from each county in 2018. 

@@ -1,6 +1,4 @@
----
-title: "Index"
-output: html_document
+
 ---
 ### Introduction
 Racism has plagued America for centuries and this is very clearly when looking at the prison system. Generational racism, the war on drugs, over policing, and our desperate need for police reform have led to the disproportionate incarceration of people of color. Throughout the United States, Black Americans are incarcerated at a massively higher rate than other races. I've chosen to take a closer look at the incarceration rates of Black Americans in comparison to other races with a focus in Washington and King county. I have lived in Seattle my whole life so I am interested to learn more about Washington's current prison system and our prison systems past. Total jail population in this dataset is the average daily number of people held in jail through December 31 of a given year. 
@@ -18,3 +16,5 @@ This chart is a connected scatterplot that analyzes the relationship between the
 ### Chart 3: Map
 This chart is a map of Washington and it compares the percent of black people of the county's total population in jail in 2018. I wanted to see how the percentage differed around the state. Using a map with color and having the darker the shade the higher the percentage would have been a very clear way to show this. I was able to make lots of different maps but for some reason I was have trouble with adding my data into it. I added a picture of one of the maps I made but it the  data won't input it. I have lots of code in the analysis file that should some of the many ways I tried to get the map to work. 
 ![](charts/chart3.pgn)
+
+---

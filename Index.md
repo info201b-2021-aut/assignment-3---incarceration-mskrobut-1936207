@@ -13,10 +13,7 @@ This graph is a line plot that follows the trend over time of how many of the to
 This chart is a connected scatterplot that analyzes the relationship between the population of black people in King County and how many of the total incarcerated people are black. I used ratios to compare this data so that I can fairly compare the data points together other and not have to worry about taking into account the population of King County growing in general. So I compared the percentage of Black people in all of King County's Total Population to the percent of black people who incarcerated. I found though looking at the general flow of the chart that generally as the percent of the black population rises in King County, the percent of the black population in jails is decreasing.
 ![](charts/chart2.png)
 
-![](charts/map.pgn)
 
 ### Chart 3: Map
-This chart is a map of Washington and it compares the percent of black people of the county's total population in jail in 2018. I wanted to see how the percentage differed around the state. Using a map with color and having the darker the shade the higher the percentage would have been a very clear way to show this. I was able to make lots of different maps but for some reason I was have trouble with adding my data into it. I added a picture of one of the maps I made but it the  data won't input it. I have lots of code in the analysis file that should some of the many ways I tried to get the map to work. 
-
-
-
+This chart is a map of Washington and it compares the percent of black people of the county's total population in jail in 2018. I wanted to see how the percentage differed around the state. Using a map with color and having the darker the shade the higher the percentage would have been a very clear way to show this. I was able to make lots of different maps but for some reason I was have trouble with adding my data into it. I added a picture of one of the maps I made but it the  data won't input it. I have lots of code in the analysis file that should some of the many ways I tried to get the map to work.
+![](charts/map.pgn)

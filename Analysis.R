@@ -1,7 +1,7 @@
-incarceration_trends <- read_csv("Desktop/assignment-3---incarceration-mskrobut-1936207/incarceration_trends.csv")
 
 library(tidyverse)
 incarcerationtrends_df <- read.csv("Desktop/assignment-3---incarceration-mskrobut-1936207/incarceration_trends.csv")
+incarcerationtrends <- read.csv("Desktop/assignment-3---incarceration-mskrobut-1936207/incarceration_trends.csv")
 
 # SUMMARY INFO
 SummaryInfo <- select(incarceration_trends, year, state, county_name, total_jail_pop, aapi_jail_pop, black_jail_pop, latinx_jail_pop, native_jail_pop, white_jail_pop, other_race_jail_pop) %>%
@@ -37,12 +37,12 @@ King_df <- select(incarceration_trends, state, county_name, year, total_pop_15to
   mutate(PercentofJailPop_Black = (black_jail_pop / total_jail_pop) * 100) %>%
   mutate(PercentofTotalPopinJail = (total_jail_pop / total_pop_15to64) * 100)
 
-write.csv(King_df,"Desktop/assignment-3---incarceration-mskrobut-1936207/King_df.csv", row.names = FALSE)
+write.csv(King_df,"King_df.csv", row.names = FALSE)
 
 
 
 ### CHART 1 TREND OVER TIME What % of total Incarceration do Black People make up in King County from 2000 - 2018
-King_df <- read_csv("Desktop/assignment-3---incarceration-mskrobut-1936207/King_df.csv")
+King_df <- read_csv("King_df.csv")
 Chart1PercentJailPopBlack <- subset(King_df, select = c("year", "PercentofJailPop_Black"))
 
 library(ggplot2)
@@ -57,7 +57,7 @@ ggplot(Chart1PercentJailPopBlack, aes(x=year, y=PercentofJailPop_Black)) +
 
 
 ### CHART 2 COMPARISON RATIO percentage of population that is Black vs the percentage of pop in jail that is black in King County
-King_df <- read_csv("Desktop/assignment-3---incarceration-mskrobut-1936207/King_df.csv")
+King_df <- read_csv("King_df.csv")
 ComparScat <- subset(King_df, select = c("year", "PercentofTotalPop_Black", "PercentofJailPop_Black")) %>%
   filter(year == 2018 | year == 2016 | year == 2014 | year == 2012 | year == 2010 | year == 2008 | year == 2006 | year == 2004 | year == 2002 | year == 2000)
 
@@ -71,105 +71,58 @@ ggplot(ComparScat, aes(x=PercentofJailPop_Black, y=PercentofTotalPop_Black)) +
   labs(title = "The Effect of King County's rising population of \nBlack People on the amount of incarcerated \nBlack People in King County") + ylab("Percent of Total Black Population in Jail") + xlab("Percent of Total Black Population in King County")
   theme_bw(base_size = 200)
 
-   mutate(PercentofJailPop_Black = (black_jail_pop / total_jail_pop) * 100)
+
 
 ### CHART 3 MAP WA counties 2018 % total black people incarcerated from total jail population
-Map_df <- subset(incarceration_trends, select = c("state", "county_name", "year", "total_jail_pop", "black_jail_pop")) %>%
-
-Map_df2018 <- mutate(Map_df, PercentofJailPop_Black = (black_jail_pop / total_jail_pop) * 100)
-
-counties_table<- subset(counties, select = c("county_name", "lat", "long"))
-
-county_table2018 <- merge(x=Map_df2018, y=counties_table, by = "county_name", all.x=TRUE)
-
-library(usmap)
-library(ggplot2)
-
-  plot_usmap(regions = "counties", data=county_table2018, values="PercentofJailPop_Black", aes(x=long, y=lat)) +
-    labs(title = "Percentage of Black People of the total Incarcerated Population in 2018",
-         subtitle = "This is a map of all the counties in the US.") +
-    theme(legend.position = "right")
-
-  plot_usmap(regions = "counties", data=county_data2018, values="PercentofJailPop_Black", exclude=NA, color = "red") +
-    scale_fill_continuous(low = "white", high = "red", name = "Population", label = scales::comma) +
-    labs(title = "Washington Region", subtitle = "Population in Washington Counties in 2018") +
-    theme(legend.position = "right")
-
+  library(mapproj)
   library(ggplot2)
-  library(maps)
-  library(mapdata)
-
-  usa <- map_data('usa')
-
-  ggplot(data=usa, aes(x=long, y=lat, group=group)) +
-    geom_polygon(fill='lightblue') +
-    theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank(),
-          axis.title.y=element_blank(), axis.text.y=element_blank(), axis.ticks.y=element_blank()) +
-    ggtitle('U.S. Map') +
-    coord_fixed(1.3)
-
-  state <- map_data("state")
-
-  ggplot(data=state, aes(x=long, y=lat, fill=region, group=group)) +
-    geom_polygon(color = "white") +
-    guides(fill=FALSE) +
-    theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank(),
-          axis.title.y=element_blank(), axis.text.y=element_blank(), axis.ticks.y=element_blank()) +
-    ggtitle('U.S. Map with States') +
-    coord_fixed(1.3)
-
-  washington <- subset(state, region=="washington")
-  counties <- map_data("county")
-  washington_county <- subset(counties, region=="washington")
-
-  ca_map <- ggplot(county_data2018, mapping=aes(x=long, y=lat, group=group)) +
-    coord_fixed(1.3) +
-    geom_polygon(color="black", fill="gray") +
-    geom_polygon(data=washington_county, fill=NA, color="white") +
-    geom_polygon(color="black", fill=NA) +
-    ggtitle('Washington Map with Counties') +
-    theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank(),
-          axis.title.y=element_blank(), axis.text.y=element_blank(), axis.ticks.y=element_blank())
-  ca_map
-
-
-  install.packages('devtools')
-  devtools::install_github("UrbanInstitute/urbnmapr")
-
-  library(tidyverse)
-  library(urbnmapr)
-
-  MapWA2018 <- ggplot(data=county_data2018, mapping=aes(long, lat, group = county_name, fill = total_jail_pop)) +
-    geom_polygon(color = NA) +
-    coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
-    labs(fill = "Total Jail Pop per County in 2018")
-
-
-  washington <- subset(state, region=="washington")
-  counties <- map_data("county")
-  washington_county <- subset(counties, region=="washington")
-
-
-  state <- map_data("state")
-  ggplot(data=state, aes(x=long, y=lat, fill=region, group=group)) +
-    geom_polygon(color = "white") +
-    guides(fill=FALSE) +
-    theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank(),
-          axis.title.y=element_blank(), axis.text.y=element_blank(), axis.ticks.y=element_blank()) +
-    ggtitle('U.S. Map with States') +
-    coord_fixed(1.3)
-
-  washington <- subset(state, region=="washington")
-  counties <- map_data("county")
-  washington_county <- subset(counties, region=="washington")
-
-
-  ca_map <- ggplot(county_data2018, mapping=aes(x=long, y=lat, group=total_jail_pop)) +
-    coord_fixed(1.3) +
-    geom_polygon(color="black", fill="gray") +
-    geom_polygon(data=washington_county, fill=NA, color="white") +
-    geom_polygon(color="black", fill=NA) +
-    ggtitle('Washington Map with Counties') +
-    theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank(),
-          axis.title.y=element_blank(), axis.text.y=element_blank(), axis.ticks.y=element_blank())
-  ca_map
+  library(dplyr)
+  require(maps)
+  statenameabr <- read_csv("Desktop/assignment-3---incarceration-mskrobut-1936207/statenameabr.csv")
+  
+  ALLcounties2018 <- read_csv("Desktop/assignment-3---incarceration-mskrobut-1936207/ALLcounties2018.csv")
+  
+  map_shape <- map_data("county")
+  
+  map_shapewabr <- merge(x=map_shape,y=statenameabr,by="region",all.x=TRUE)
+  
+  dataALLcounty <- rename(ALLcounties2018, abr = state)
+  
+  mapdataUSstate <- merge(x=dataALLcounty,y=map_shapewabr,by="abr",all.x=TRUE)
+  
+  dataforcornermap <- subset(mapdataUSstate, select = c("abr", "PercentofJailPop_Black", "long", "lat", "group")) %>%
+    filter (abr == "WA" | abr == "OR" | abr == "CA" | abr == "AL" | abr == "GA" | abr == "FL")
+  
+  map_theme <- theme_bw() +
+    theme(
+      plot.background = element_rect(),
+    )
+  
+  UScornermap <- ggplot(dataforcornermap) +
+    geom_polygon(
+      mapping = aes(x = long, y = lat, group = group, fill = PercentofJailPop_Black),
+      color = "black",
+      size = .1
+    ) +
+    coord_map() +
+    scale_fill_gradient2(
+      low = "yellow",
+      mid = "orange",
+      high = "red",
+      midpoint = 50,
+      space = "Lab",
+      na.value = "grey50",
+      guide = "colourbar",
+      aesthetics = "fill",
+      breaks=c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100),
+      labels=c("Minimum", 10, 20, 30, 40, 50, 60, 70, 80, 90, "Maximum"),
+      limits=c(0, 100)
+    ) +
+    labs(
+      fill = "% of Incarcerated Population that is Black",
+      title = "Percentage of Black People of the total Incarcerated Population in 2018",
+    ) +
+    map_theme
+  
+  print(UScornermap)
+  

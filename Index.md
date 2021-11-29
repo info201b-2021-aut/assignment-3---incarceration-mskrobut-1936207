@@ -7,13 +7,13 @@ I wanted to focus on the State of Washington so I found that the County in Washi
 
 ### Chart 1: Trend over time
 This graph is a line plot that follows the trend over time of how many of the total incarceration people are black. I calculated this by using the merge function to create a column that output the percentage of the population in jail that are black. The math I did during the mergue function was dividing the black_jail_pop by the total_jail_pop and multiplying by 100. When looking at the line graph below, you can see that there hasn't been much of a change in black people's percentage of total incarceration. There was a little spike in 2010 and it has been decreasing ever since. I know from other research that black people's total population has increased in King County over the past 20 years though, so it is surprising to me that the chart didn't show a constant/steady increase.  
-![](charts/chart1.png)
+![](charts/chart1.png) <!-- -->
 
 ### Chart 2: Variable Comparison Chart
 This chart is a connected scatterplot that analyzes the relationship between the population of black people in King County and how many of the total incarcerated people are black. I used ratios to compare this data so that I can fairly compare the data points together other and not have to worry about taking into account the population of King County growing in general. So I compared the percentage of Black people in all of King County's Total Population to the percent of black people who incarcerated. I found though looking at the general flow of the chart that generally as the percent of the black population rises in King County, the percent of the black population in jails is decreasing.
-![](charts/chart2.png)
+![](charts/chart2.png) <!-- -->
 
 
 ### Chart 3: Map
 This chart is a map of Washington and it compares the percent of black people of the county's total population in jail in 2018. I wanted to see how the percentage differed around the state. Using a map with color and having the darker the shade the higher the percentage would have been a very clear way to show this. I was able to make lots of different maps but for some reason I was have trouble with adding my data into it. I added a picture of one of the maps I made but it the  data won't input it. I have lots of code in the analysis file that should some of the many ways I tried to get the map to work.
-![](charts/map.pgn)
+![](charts/chart3.png) <!-- -->
